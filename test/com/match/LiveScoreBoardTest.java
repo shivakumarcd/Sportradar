@@ -150,16 +150,13 @@ class LiveScoreBoardTest {
         homeTeam = "Mexico"; 
         awayTeam = "Canada";
         liveScoreBoard.finishMatch(homeTeam, awayTeam);
-        Match matchData = new Match();
-		matchData.setHomeTeam(homeTeam);
-		matchData.setAwayTeam(awayTeam);
+        Match matchData = new Match(homeTeam, awayTeam);
         int index = liveScoreBoard.getIndexOfMatch(matchData);
         assertEquals(index, -1);
         
         homeTeam = "Spain"; 
         awayTeam = "Brazil";
-		matchData.setHomeTeam(homeTeam);
-		matchData.setAwayTeam(awayTeam);
+        matchData = new Match(homeTeam, awayTeam);
         index = liveScoreBoard.getIndexOfMatch(matchData);
         assertEquals(index, 0);
 	}

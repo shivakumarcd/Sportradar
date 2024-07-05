@@ -13,10 +13,7 @@ public class LiveScoreBoard {
 	public void addNewMatch(String homeTeam, String awayTeam) throws Exception {
 		validateMatchToAdd(homeTeam, awayTeam);
 		
-		//TODO constructor to pass home and away team
-		Match match = new Match();
-		match.setHomeTeam(homeTeam);
-		match.setAwayTeam(awayTeam);
+		Match match = new Match(homeTeam, awayTeam);
 		//Maintaining adding order to be used for sorting
 		int addOrder = matchList.size();
 		//TODO remove addingOrder from match and use list index for sorting instead
@@ -25,21 +22,15 @@ public class LiveScoreBoard {
 	}
 	
 	public void updateScore(String homeTeam, String awayTeam, int homeTeamScore, int awayTeamScore) {
-		//TODO constructor to pass home and away team
 		//TODO throw exception if index is -1
-		Match match = new Match();
-		match.setHomeTeam(homeTeam);
-		match.setAwayTeam(awayTeam);
+		Match match = new Match(homeTeam, awayTeam);
 		int index = matchList.indexOf(match);
 		matchList.get(index).setHomeTeamScore(homeTeamScore);
 		matchList.get(index).setAwayTeamScore(awayTeamScore);
 	}
 	
 	public void finishMatch(String homeTeam, String awayTeam) {
-		//TODO constructor to pass home and away team, search for all new Match()
-		Match match = new Match();
-		match.setHomeTeam(homeTeam);
-		match.setAwayTeam(awayTeam);
+		Match match = new Match(homeTeam, awayTeam);
 		matchList.remove(match);
 		//TODO update order of all Matches hence forth, no need of this if adding order is removed from the match 
 	}
@@ -59,9 +50,7 @@ public class LiveScoreBoard {
 			throw ex;
 		}
 		
-		Match match = new Match();
-		match.setHomeTeam(homeTeam);
-		match.setAwayTeam(awayTeam);
+		Match match = new Match(homeTeam, awayTeam);
 		
 		if (matchList.contains(match)) {
 			Exception ex = new Exception("Match already live");
@@ -79,9 +68,7 @@ public class LiveScoreBoard {
 
 	
 	public Match getMatachDetailsFor(String homeTeam, String awayTeam) {
-		Match match = new Match();
-		match.setHomeTeam(homeTeam);
-		match.setAwayTeam(awayTeam);
+		Match match = new Match(homeTeam, awayTeam);
 		int index = matchList.indexOf(match);
 		return matchList.get(index);
 	}

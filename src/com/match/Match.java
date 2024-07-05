@@ -8,6 +8,10 @@ public class Match implements Comparable<Match> {
 	private int addingOrder;
 
 	
+	public Match(String homeTeam, String awayTeam) {
+		this.homeTeam = homeTeam;
+		this.awayTeam = awayTeam;
+	}
 	
 	@Override
 	public boolean equals(Object obj) {
@@ -66,14 +70,6 @@ public class Match implements Comparable<Match> {
 		return addingOrder;
 	}
 	
-	public void setHomeTeam(String homeTeam) {
-		this.homeTeam = homeTeam;
-	}
-
-	public void setAwayTeam(String awayTeam) {
-		this.awayTeam = awayTeam;
-	}
-
 	public void setHomeTeamScore(int homeTeamScore) {
 		this.homeTeamScore = homeTeamScore;
 	}
