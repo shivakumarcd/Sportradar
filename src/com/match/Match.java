@@ -1,11 +1,13 @@
 package com.match;
 
-public class Match implements Comparable<Match> {
+//TODO remove comment
+public class Match /*implements Comparable<Match> */ {
 	private String homeTeam;
 	private String awayTeam;
 	private int homeTeamScore;
 	private int awayTeamScore;
-	private int addingOrder;
+	//TODO remove
+	//private int addingOrder;
 
 	
 	public Match(String homeTeam, String awayTeam) {
@@ -29,7 +31,8 @@ public class Match implements Comparable<Match> {
 		return false;
 	}
 	
-	@Override
+	//TODO remove
+	/*@Override
 	public int compareTo(Match obj) {
 		int thisTotalScore = this.homeTeamScore + this.awayTeamScore;
 		int objTotalScore = obj.getHomeTeamScore() + obj.getAwayTeamScore(); 
@@ -42,7 +45,7 @@ public class Match implements Comparable<Match> {
 		} else {
 			return 1;
 		}
-	}
+	}*/
 	
 	@Override
 	public String toString() {
@@ -66,9 +69,10 @@ public class Match implements Comparable<Match> {
 		return this.awayTeamScore;
 	}
 
-	public int getAddingOrder() {
-		return addingOrder;
-	}
+	//TODO remove
+//	public int getAddingOrder() {
+//		return addingOrder;
+//	}
 	
 	public void setHomeTeamScore(int homeTeamScore) {
 		this.homeTeamScore = homeTeamScore;
@@ -80,7 +84,7 @@ public class Match implements Comparable<Match> {
 
 
 
-	public void setAddingOrder(int addingOrder) {
-		this.addingOrder = addingOrder;
-	}
+//	public void setAddingOrder(int addingOrder) {
+//		this.addingOrder = addingOrder;
+//	}
 }
