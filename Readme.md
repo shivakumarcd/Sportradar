@@ -1,4 +1,4 @@
-#Sportradar
+# Sportradar
 Live scoreboard library
 
 ## Importing and running the project on Eclipse IDE
@@ -16,7 +16,6 @@ Live scoreboard library
 
 ### To run test cases
     * Right click on project -> "Run as" -> "Junit Test"
-    * All tests run with success/failures
 
 ## Authors
 Shivakumar Doddamani
