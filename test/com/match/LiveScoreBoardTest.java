@@ -43,7 +43,6 @@ class LiveScoreBoardTest {
     }
 	@Test
     public void testAddNewMatchEdgeCases() { 
-		System.out.println("*****************testAddNewMatchEdgeCases: Start**********************");
 		String homeTeam = "USA"; 
         String awayTeam = "Brazil";
         try {
@@ -52,31 +51,11 @@ class LiveScoreBoardTest {
         		
         }
         
-        //System.out.println("No of live matches after adding 1 in 1st test case = " + liveScoreBoard.getNumberOfLiveMathces());
-		
-        //Edge case 1/3: Same match cannot be added twice to scoreboard
+        String newAwayTeam = "Spain";
         Exception exception = assertThrows(Exception.class, () -> { 
-        	liveScoreBoard.addNewMatch(homeTeam, awayTeam);; 
+        	liveScoreBoard.addNewMatch(homeTeam, newAwayTeam);; 
         }); 
-        assertEquals("Match already live", exception.getMessage());
-        System.out.println("testAddNewMatchEdgeCases Case 1 passed");
-        
-    
-    	//Edge case 2/3: Test adding ("Brazil", "USA") when ("USA", "Brazil") match already on scoreboard 
-        exception = assertThrows(Exception.class, () -> { 
-        	liveScoreBoard.addNewMatch(awayTeam, homeTeam);; 
-        }); 
-        assertEquals("Match already live", exception.getMessage());
-        System.out.println("testAddNewMatchEdgeCases Case 2 passed");
-        
-        //Edge case 3/3:team cannot be in match with itself
-        exception = assertThrows(Exception.class, () -> { 
-        	liveScoreBoard.addNewMatch(homeTeam, homeTeam);; 
-        }); 
-        assertEquals("Match not allowed between same team", exception.getMessage());
-        System.out.println("testAddNewMatchEdgeCases Case 3 passed");
-        //TODO test that match cannot be created when a team is already in a running match
-        System.out.println("*****************testAddNewMatchEdgeCases: Start**********************");
+        assertEquals("Team already in match", exception.getMessage());
     } 
 
 	
@@ -179,6 +158,16 @@ class LiveScoreBoardTest {
 		//TODO test after deleting
 		
 	}
+	/*
+	@Test
+	public void testGetSummaryEdgeCases() {
+		// TODO
+		fail("fail");
+	}
+	*/
+	
+	
+	/*Other supporting refactored functions*/
 	private void prepareForSummaryTest() {
 		String homeTeam = "Mexico"; 
         int homeTeamScore = 0;
@@ -236,18 +225,5 @@ class LiveScoreBoardTest {
         		
         }
         
-	}
-	/*
-	@Test
-	public void testGetSummaryEdgeCases() {
-		// TODO
-		fail("fail");
-	}
-	*/
-	
-	
-	
-	public void dummy() {
-		
 	}
 }

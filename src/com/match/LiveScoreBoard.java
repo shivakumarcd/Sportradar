@@ -17,10 +17,6 @@ public class LiveScoreBoard {
 		validateMatchToAdd(homeTeam, awayTeam);
 		
 		Match match = new Match(homeTeam, awayTeam);
-		//Maintaining adding order to be used for sorting
-		int addOrder = matchList.size();
-		//TODO remove addingOrder from match and use list index for sorting instead
-		//match.setAddingOrder(addOrder);
 		matchList.add(match);
 	}
 	
@@ -44,6 +40,9 @@ public class LiveScoreBoard {
 		return this.sortMatches().toString();
 	}
 	
+	
+	/*************************************************************************************/
+	//Other supporting refactored functions
 	private List<Match> sortMatches() {
 		Map<Integer, Match> indexToMatchMap = new HashMap<Integer, Match>(); 
 		for (int i = 0; i < this.matchList.size(); i++) {
@@ -64,20 +63,13 @@ public class LiveScoreBoard {
 		return entryList.stream().map(entry -> entry.getValue()).collect(Collectors.toList());
 	}
 	
-	/*************************************************************************************/
-	//Other supporting functions
-	//TODO return validation errors or Validation exception
 	private void validateMatchToAdd(String homeTeam, String awayTeam) throws Exception {
-		if (homeTeam.equals(awayTeam)) {
-			Exception ex = new Exception("Match not allowed between same team");
-			throw ex;
-		}
-		
-		Match match = new Match(homeTeam, awayTeam);
-		
-		if (matchList.contains(match)) {
-			Exception ex = new Exception("Match already live");
-			throw ex;
+		for (Match match: matchList) {
+			if (match.getHomeTeam().equals(homeTeam) || match.getAwayTeam().equals(homeTeam)
+					|| match.getHomeTeam().equals(awayTeam) || match.getAwayTeam().equals(awayTeam)) {
+				Exception ex = new Exception("Team already in match");
+				throw ex;
+			}
 		}
 	}
 	
