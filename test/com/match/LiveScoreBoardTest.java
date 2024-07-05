@@ -51,8 +51,22 @@ class LiveScoreBoardTest {
         		
         }
         
-        String newAwayTeam = "Spain";
         Exception exception = assertThrows(Exception.class, () -> { 
+        	liveScoreBoard.addNewMatch(awayTeam, homeTeam);; 
+        }); 
+        assertEquals("Team already in match", exception.getMessage());
+        exception = assertThrows(Exception.class, () -> { 
+        	liveScoreBoard.addNewMatch(homeTeam, homeTeam);; 
+        }); 
+        assertEquals("Team already in match", exception.getMessage());
+        
+        exception = assertThrows(Exception.class, () -> { 
+        	liveScoreBoard.addNewMatch(awayTeam, homeTeam);; 
+        }); 
+        assertEquals("Team already in match", exception.getMessage());
+        
+        String newAwayTeam = "Spain";
+        exception = assertThrows(Exception.class, () -> { 
         	liveScoreBoard.addNewMatch(homeTeam, newAwayTeam);; 
         }); 
         assertEquals("Team already in match", exception.getMessage());
@@ -153,10 +167,7 @@ class LiveScoreBoardTest {
 		prepareForSummaryTest();
 		String result = liveScoreBoard.getSummary();
 		String expResult = "[Uruguay  6  -  Italy  6, Spain  10  -  Brazil  2, Mexico  0  -  Canada  5, Argentina  3  -  Australia  1, Germany  2  -  France  2]";
-		assertEquals(result, expResult);
-		
-		//TODO test after deleting
-		
+		assertEquals(result, expResult);		
 	}
 	/*
 	@Test

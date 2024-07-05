@@ -30,12 +30,10 @@ public class LiveScoreBoard {
 	
 	public void finishMatch(String homeTeam, String awayTeam) {
 		Match match = new Match(homeTeam, awayTeam);
-		matchList.remove(match);
-		//TODO update order of all Matches hence forth, no need of this if adding order is removed from the match 
+		matchList.remove(match); 
 	}
 	
 	public String getSummary() {
-		//TODO update to use comparator
 		//matchList.sort(null);
 		return this.sortMatches().toString();
 	}
