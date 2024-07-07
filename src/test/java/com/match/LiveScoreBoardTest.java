@@ -17,11 +17,7 @@ class LiveScoreBoardTest {
         String homeTeam = "Mexico"; 
         String awayTeam = "Canada";
         
-        try {
-        	liveScoreBoard.addNewMatch(homeTeam, awayTeam);
-        } catch(Exception ex) {
-        		
-        }
+    	liveScoreBoard.addNewMatch(homeTeam, awayTeam);
         assertEquals(liveScoreBoard.getLastAdded().getHomeTeam(), homeTeam);
         assertEquals(liveScoreBoard.getLastAdded().getAwayTeam(), awayTeam);
         assertEquals(liveScoreBoard.getLastAdded().getHomeTeamScore(), 0);
@@ -30,46 +26,54 @@ class LiveScoreBoardTest {
         
         homeTeam = "Spain"; 
         awayTeam = "Brazil";
-        try {
-        	liveScoreBoard.addNewMatch(homeTeam, awayTeam);
-        } catch(Exception ex) {
-        		
-        }
+    	liveScoreBoard.addNewMatch(homeTeam, awayTeam);
         assertEquals(liveScoreBoard.getLastAdded().getHomeTeam(), homeTeam);
         assertEquals(liveScoreBoard.getLastAdded().getAwayTeam(), awayTeam);
         assertEquals(liveScoreBoard.getLastAdded().getHomeTeamScore(), 0);
         assertEquals(liveScoreBoard.getLastAdded().getHomeTeamScore(), 0);
-        //System.out.println("No of live matches after adding 2 in 1st test case = " + liveScoreBoard.getNumberOfLiveMathces());
     }
 	@Test
-    public void testAddNewMatchEdgeCases() { 
+    public void testAddNewMatchEdgeCases() {
 		String homeTeam = "USA"; 
         String awayTeam = "Brazil";
-        try {
-        	liveScoreBoard.addNewMatch(homeTeam, awayTeam);
-        } catch (Exception ex) {
-        		
-        }
+    	liveScoreBoard.addNewMatch(homeTeam, awayTeam);
         
+        //Adding same match should result in exception
         Exception exception = assertThrows(Exception.class, () -> { 
-        	liveScoreBoard.addNewMatch(awayTeam, homeTeam);; 
+        	liveScoreBoard.addNewMatch(homeTeam, awayTeam);;
         }); 
         assertEquals("Team already in match", exception.getMessage());
+        
+        //Testing keeping same home and away team
         exception = assertThrows(Exception.class, () -> { 
         	liveScoreBoard.addNewMatch(homeTeam, homeTeam);; 
         }); 
         assertEquals("Team already in match", exception.getMessage());
         
+        //Testing match by interchanging homeTeam & awayTeam
         exception = assertThrows(Exception.class, () -> { 
         	liveScoreBoard.addNewMatch(awayTeam, homeTeam);; 
         }); 
         assertEquals("Team already in match", exception.getMessage());
         
+        //Testing if team is already in another match 
         String newAwayTeam = "Spain";
         exception = assertThrows(Exception.class, () -> { 
         	liveScoreBoard.addNewMatch(homeTeam, newAwayTeam);; 
         }); 
         assertEquals("Team already in match", exception.getMessage());
+        
+        //Testing if either of home/away team is null
+        exception = assertThrows(Exception.class, () -> { 
+        	liveScoreBoard.addNewMatch(awayTeam, null);; 
+        }); 
+        assertEquals("Team cannot be null or empty", exception.getMessage());
+        
+        //Testing if either of home/away team is empty string
+        exception = assertThrows(Exception.class, () -> { 
+        	liveScoreBoard.addNewMatch(awayTeam, "");; 
+        }); 
+        assertEquals("Team cannot be null or empty", exception.getMessage());
     } 
 
 	
@@ -79,18 +83,11 @@ class LiveScoreBoardTest {
 	public void testUpdateScore() {
 		String homeTeam = "Mexico"; 
         String awayTeam = "Canada";
-        try {
-        	liveScoreBoard.addNewMatch(homeTeam, awayTeam);
-        } catch(Exception ex) {
-        		
-        }
-        homeTeam = "Spain"; 
+    	liveScoreBoard.addNewMatch(homeTeam, awayTeam);
+
+    	homeTeam = "Spain"; 
         awayTeam = "Brazil";
-        try {
-        	liveScoreBoard.addNewMatch(homeTeam, awayTeam);
-        } catch(Exception ex) {
-        		
-        }
+    	liveScoreBoard.addNewMatch(homeTeam, awayTeam);
         
         homeTeam = "Mexico"; 
         int homeTeamScore = 0;
@@ -110,16 +107,47 @@ class LiveScoreBoardTest {
         matchDetails = liveScoreBoard.getMatachDetailsFor(homeTeam, awayTeam);
         assertEquals(matchDetails.getHomeTeamScore(), homeTeamScore);
         assertEquals(matchDetails.getAwayTeamScore(), awayTeamScore);
-		//fail("fail");
 	}
-	/*
 	@Test
 	public void testUpdateScoreEdgeCases() {
-		// TODO
-		//testUpdateScoreOfNonLiveMatch
-		fail("fail");
+		String homeTeam = "USA"; 
+        String awayTeam = "Brazil";
+        int homeTeamScore = 1;
+        int awayTeamScore = 2;
+    	liveScoreBoard.addNewMatch(homeTeam, awayTeam);
+    	liveScoreBoard.updateScore(homeTeam, awayTeam, homeTeamScore, awayTeamScore);
+        
+        //Handle -ve score case
+        int negativeScore = -1;
+        Exception exception = assertThrows(Exception.class, () -> { 
+        	liveScoreBoard.updateScore(homeTeam, awayTeam, homeTeamScore, negativeScore); 
+        }); 
+        assertEquals("Cannot update score with negative value", exception.getMessage());
+        
+        
+        //Testing update score on non-existing matches
+        exception = assertThrows(Exception.class, () -> { 
+        	liveScoreBoard.updateScore(awayTeam, homeTeam, awayTeamScore, homeTeamScore);
+        }); 
+        assertEquals("Cannot update score for non-existing match", exception.getMessage());
+
+        String newAwayTeam = "Spain";
+        exception = assertThrows(Exception.class, () -> { 
+        	liveScoreBoard.updateScore(homeTeam, newAwayTeam, homeTeamScore, awayTeamScore); 
+        }); 
+        assertEquals("Cannot update score for non-existing match", exception.getMessage());
+        
+        //Testing if either of home/away team is empty string
+        exception = assertThrows(Exception.class, () -> { 
+        	liveScoreBoard.updateScore(awayTeam, null, awayTeamScore, homeTeamScore); 
+        }); 
+        assertEquals("Team cannot be null or empty", exception.getMessage());        
+        exception = assertThrows(Exception.class, () -> { 
+        	liveScoreBoard.updateScore(awayTeam, "", awayTeamScore, homeTeamScore);
+        }); 
+        assertEquals("Team cannot be null or empty", exception.getMessage());
+        
 	}
-	*/
 	
 		
 	
@@ -127,18 +155,11 @@ class LiveScoreBoardTest {
 	public void testFinishMatch() {
 		String homeTeam = "Mexico"; 
         String awayTeam = "Canada";
-        try {
-        	liveScoreBoard.addNewMatch(homeTeam, awayTeam);
-        } catch(Exception ex) {
-        		
-        }
-        homeTeam = "Spain"; 
+    	liveScoreBoard.addNewMatch(homeTeam, awayTeam);
+
+    	homeTeam = "Spain"; 
         awayTeam = "Brazil";
-        try {
-        	liveScoreBoard.addNewMatch(homeTeam, awayTeam);
-        } catch(Exception ex) {
-        		
-        }
+    	liveScoreBoard.addNewMatch(homeTeam, awayTeam);
         
         homeTeam = "Mexico"; 
         awayTeam = "Canada";
@@ -153,14 +174,35 @@ class LiveScoreBoardTest {
         index = liveScoreBoard.getIndexOfMatch(matchData);
         assertEquals(index, 0);
 	}
-	/*@Test
+	
+	@Test
 	public void testFinishMatchEdgeCases() {
-		// TODO
-		fail("fail");
-	}*/
-	
-	
-	
+		String homeTeam = "USA"; 
+        String awayTeam = "Brazil";
+    	liveScoreBoard.addNewMatch(homeTeam, awayTeam);
+        
+        //Testing finish non-existing matches
+        Exception exception = assertThrows(Exception.class, () -> { 
+        	liveScoreBoard.finishMatch(awayTeam, homeTeam);
+        }); 
+        assertEquals("Cannot finish non-existing match", exception.getMessage());
+
+        String newAwayTeam = "Spain";
+        exception = assertThrows(Exception.class, () -> { 
+        	liveScoreBoard.finishMatch(homeTeam, newAwayTeam); 
+        }); 
+        assertEquals("Cannot finish non-existing match", exception.getMessage());
+        
+        //Testing if either of home/away team is empty string
+        exception = assertThrows(Exception.class, () -> { 
+        	liveScoreBoard.finishMatch(awayTeam, null); 
+        }); 
+        assertEquals("Team cannot be null or empty", exception.getMessage());        
+        exception = assertThrows(Exception.class, () -> { 
+        	liveScoreBoard.finishMatch(awayTeam, "");
+        }); 
+        assertEquals("Team cannot be null or empty", exception.getMessage());
+	}
 	
 	@Test
 	public void testGetSummary() {
@@ -169,16 +211,15 @@ class LiveScoreBoardTest {
 		String expResult = "[Uruguay  6  -  Italy  6, Spain  10  -  Brazil  2, Mexico  0  -  Canada  5, Argentina  3  -  Australia  1, Germany  2  -  France  2]";
 		assertEquals(result, expResult);		
 	}
-	/*
+
 	@Test
 	public void testGetSummaryEdgeCases() {
-		// TODO
-		fail("fail");
+		String result = liveScoreBoard.getSummary();
+		String expResult = "[]";
+		assertEquals(result, expResult);
 	}
-	*/
 	
-	
-	/*Other supporting refactored functions*/
+	/*Other supporting re-factored functions*/
 	private void prepareForSummaryTest() {
 		String homeTeam = "Mexico"; 
         int homeTeamScore = 0;

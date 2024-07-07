@@ -1,9 +1,3 @@
-/**
- * 
- */
-/**
- * 
- */
-module SRProj1 {
+module Sportradar {
 	requires org.junit.jupiter.api;
 }

@@ -7,6 +7,9 @@ public class Match  {
 	private int awayTeamScore;
 	
 	public Match(String homeTeam, String awayTeam) {
+		if (null == homeTeam || null == awayTeam || "".equals(awayTeam) || "".equals(homeTeam)) {
+			throw new InvalidDataException("Team cannot be null or empty");
+		}
 		this.homeTeam = homeTeam;
 		this.awayTeam = awayTeam;
 	}
