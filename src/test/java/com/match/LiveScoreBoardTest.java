@@ -209,7 +209,14 @@ class LiveScoreBoardTest {
 		prepareForSummaryTest();
 		String result = liveScoreBoard.getSummary();
 		String expResult = "[Uruguay  6  -  Italy  6, Spain  10  -  Brazil  2, Mexico  0  -  Canada  5, Argentina  3  -  Australia  1, Germany  2  -  France  2]";
-		assertEquals(result, expResult);		
+		assertEquals(result, expResult);
+		
+		// test summary after match finish
+		liveScoreBoard.finishMatch("Mexico", "Canada");
+		result = liveScoreBoard.getSummary();
+		expResult = "[Uruguay  6  -  Italy  6, Spain  10  -  Brazil  2, Argentina  3  -  Australia  1, Germany  2  -  France  2]";
+		assertEquals(result, expResult);
+		
 	}
 
 	@Test
@@ -226,56 +233,37 @@ class LiveScoreBoardTest {
         String awayTeam = "Canada";
         int awayTeamScore = 5;
         
-        try {
-        	liveScoreBoard.addNewMatch(homeTeam, awayTeam);
-        	liveScoreBoard.updateScore(homeTeam, awayTeam, homeTeamScore, awayTeamScore);
-        } catch(Exception ex) {
-        		
-        }
+    	liveScoreBoard.addNewMatch(homeTeam, awayTeam);
+    	liveScoreBoard.updateScore(homeTeam, awayTeam, homeTeamScore, awayTeamScore);
+
         
         homeTeam = "Spain";
         homeTeamScore = 10;
         awayTeam = "Brazil";
         awayTeamScore = 2;
-        try {
-        	liveScoreBoard.addNewMatch(homeTeam, awayTeam);
-        	liveScoreBoard.updateScore(homeTeam, awayTeam, homeTeamScore, awayTeamScore);
-        } catch(Exception ex) {
-        		
-        }
+    	liveScoreBoard.addNewMatch(homeTeam, awayTeam);
+    	liveScoreBoard.updateScore(homeTeam, awayTeam, homeTeamScore, awayTeamScore);
 		
         homeTeam = "Germany";
         homeTeamScore = 2;
         awayTeam = "France";
         awayTeamScore = 2;
-        try {
-        	liveScoreBoard.addNewMatch(homeTeam, awayTeam);
-        	liveScoreBoard.updateScore(homeTeam, awayTeam, homeTeamScore, awayTeamScore);
-        } catch(Exception ex) {
-        		
-        }
+    	liveScoreBoard.addNewMatch(homeTeam, awayTeam);
+    	liveScoreBoard.updateScore(homeTeam, awayTeam, homeTeamScore, awayTeamScore);
         
         homeTeam = "Uruguay";
         homeTeamScore = 6;
         awayTeam = "Italy";
         awayTeamScore = 6;
-        try {
-        	liveScoreBoard.addNewMatch(homeTeam, awayTeam);
-        	liveScoreBoard.updateScore(homeTeam, awayTeam, homeTeamScore, awayTeamScore);
-        } catch(Exception ex) {
-        		
-        }
+    	liveScoreBoard.addNewMatch(homeTeam, awayTeam);
+    	liveScoreBoard.updateScore(homeTeam, awayTeam, homeTeamScore, awayTeamScore);
         
         homeTeam = "Argentina";
         homeTeamScore = 3;
         awayTeam = "Australia";
         awayTeamScore = 1;
-        try {
-        	liveScoreBoard.addNewMatch(homeTeam, awayTeam);
-        	liveScoreBoard.updateScore(homeTeam, awayTeam, homeTeamScore, awayTeamScore);
-        } catch(Exception ex) {
-        		
-        }
+    	liveScoreBoard.addNewMatch(homeTeam, awayTeam);
+    	liveScoreBoard.updateScore(homeTeam, awayTeam, homeTeamScore, awayTeamScore);
         
 	}
 }
